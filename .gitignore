@@ -1,0 +1,4 @@
+target/
+allure-results/
+.idea/
+api-bdd-test-framework.iml
