@@ -1,7 +1,7 @@
 package ru.api.bdd.test.framework.client.http.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
 
 
 @Data
-@Component
+@AllArgsConstructor
 public class Request {
 
     private String baseUrl;
@@ -24,6 +24,7 @@ public class Request {
 
     private Map<String, String> queryParams;
 
+    private Map<String, String> urlParams;
 
     @PostConstruct
     public void update() {

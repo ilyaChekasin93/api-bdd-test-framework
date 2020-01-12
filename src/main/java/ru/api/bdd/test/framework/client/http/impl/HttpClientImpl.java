@@ -1,34 +1,29 @@
 package ru.api.bdd.test.framework.client.http.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import ru.api.bdd.test.framework.client.http.impl.handler.CustomErrorHandler;
+import org.springframework.web.util.UriComponentsBuilder;
 import ru.api.bdd.test.framework.client.http.HttpClient;
 import ru.api.bdd.test.framework.client.http.dto.Headers;
 import ru.api.bdd.test.framework.client.http.dto.Request;
 import ru.api.bdd.test.framework.client.http.dto.Response;
+import ru.api.bdd.test.framework.client.http.impl.handler.CustomErrorHandler;
 
 import java.util.List;
 import java.util.Map;
 
 
 @Component
-@Import({
-        RestTemplate.class
-})
 public class HttpClientImpl implements HttpClient {
 
     private RestTemplate restTemplate;
 
-    @Autowired
-    public HttpClientImpl(RestTemplate restTemplate, CustomErrorHandler customErrorHandler) {
-        this.restTemplate = restTemplate;
+    public HttpClientImpl(CustomErrorHandler customErrorHandler) {
+        this.restTemplate = new RestTemplate();
         restTemplate.setErrorHandler(customErrorHandler);
     }
 
@@ -40,9 +35,15 @@ public class HttpClientImpl implements HttpClient {
                 mapToHttpHeaders(request.getHeaders().getValues())
         );
 
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder
+                .fromHttpUrl(request.getBaseUrl() + request.getResource());
+
+        request.getUrlParams().entrySet().stream()
+                .forEach(p -> uriBuilder.queryParam(p.getKey(), p.getValue()));
+
         return ResponseEntity2Response(
                 restTemplate.exchange(
-                        new StringBuilder().append(request.getBaseUrl()).append(request.getResource()).toString(),
+                        uriBuilder.toUriString(),
                         httpMethod,
                         httpEntity,
                         Object.class,

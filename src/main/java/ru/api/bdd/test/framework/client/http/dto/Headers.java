@@ -2,7 +2,6 @@ package ru.api.bdd.test.framework.client.http.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,7 +10,6 @@ import java.util.Map;
 
 
 @Data
-@Component
 @AllArgsConstructor
 public class Headers {
 
@@ -19,7 +17,7 @@ public class Headers {
 
 
     public Headers(){
-        values = new HashMap();
+        values = new HashMap<>();
     }
 
     public void add(String name, String value) {
