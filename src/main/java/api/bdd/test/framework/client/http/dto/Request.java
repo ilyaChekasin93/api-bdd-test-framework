@@ -1,0 +1,34 @@
+package api.bdd.test.framework.client.http.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.*;
+
+
+@Data
+@AllArgsConstructor
+public class Request {
+
+    private String baseUrl;
+
+    private String resource;
+
+    private Method method;
+
+    private Object body;
+
+    private List<Header> headers;
+
+    private Map<String, String> queryParams;
+
+    private Map<String, String> urlParams;
+
+    public Request() {
+        body = "{}";
+        headers = new ArrayList<>();
+        queryParams = new HashMap<>();
+        urlParams = new HashMap<>();
+    }
+
+}

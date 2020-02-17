@@ -1,0 +1,162 @@
+package api.bdd.test.framework.action;
+
+import api.bdd.test.framework.client.http.HttpClient;
+import api.bdd.test.framework.client.http.dto.Header;
+import api.bdd.test.framework.client.http.dto.Method;
+import api.bdd.test.framework.client.http.dto.Request;
+import api.bdd.test.framework.client.http.dto.Response;
+import api.bdd.test.framework.context.RestContext;
+import api.bdd.test.framework.action.body.BodyAction;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static api.bdd.test.framework.utils.Helpers.getPojoValue;
+
+
+@Component
+public class RestAction {
+
+    private RestContext context;
+
+    private HttpClient client;
+
+    private BodyAction bodyAction;
+
+    private static final String POJO_REST_TARGET_PACKAGE_PROPERTY = "pojo.rest.targetPackage";
+
+
+    public RestAction(RestContext context, HttpClient client, @Qualifier( "jsonBodyAction") BodyAction bodyAction){
+        this.context = context;
+        this.client = client;
+        this.bodyAction = bodyAction;
+    }
+
+    public void executeRequest(String resource, String method) {
+        Method methodValue = Method.valueOf(method.toUpperCase());
+        Request request = context.getRequest();
+        request.setMethod(methodValue);
+        request.setResource(resource);
+        Response response;
+        try {
+            response = client.executeRequest(request);
+        }catch (ResourceAccessException e){
+            throw new RuntimeException(String.format("resource %s not available", request.getBaseUrl() + resource));
+        }
+
+        context.setResponse(response);
+        context.setRequest(new Request());
+    }
+
+    public void setBaseUrl(String url) {
+        context.getRequest().setBaseUrl(url);
+    }
+
+    public void setBody(Object body) {
+        context.getRequest().setBody(body);
+    }
+
+    public void addHeader(String name, String value) {
+        List<String> headerValues = getRequestHeaderValue(name);
+
+        if(headerValues.size() == 0) {
+            headerValues = Collections.singletonList(value);
+        } else {
+            headerValues.add(value);
+        }
+
+        Header header = new Header(name, headerValues);
+        context.getRequest().getHeaders().add(header);
+    }
+
+    public void addHeader(String name, List<String> values){
+        List<String> headerValues = getRequestHeaderValue(name);
+
+        if (headerValues.size() == 0){
+            headerValues.addAll(values);
+        }
+
+        Header header = new Header(name, headerValues);
+        context.getRequest().getHeaders().add(header);
+    }
+
+    public List<String> getRequestHeaderValue(String name){
+        Optional<Header> optionalHeader = context.getRequest().getHeaders().stream()
+                .filter(h -> h.getName().equals(name))
+                .findFirst();
+
+        return optionalHeader.isPresent() ? optionalHeader.get().getValue() : new ArrayList<>();
+    }
+
+    public void addHeaders(Map<String, String> headers){
+        headers.entrySet()
+                .forEach(h -> addHeader(h.getKey(), h.getValue()));
+    }
+
+    public void setHeaders(Map<String, String> headers){
+        List<Header> headerList = headers
+                .entrySet().stream()
+                .map(h -> new Header(h.getKey(), Collections.singletonList(h.getValue())))
+                .collect(Collectors.toList());
+
+        context.getRequest().setHeaders(headerList);
+    }
+
+    public void addQueryParam(String key, String value) {
+        context.getRequest().getQueryParams().put(key, value);
+    }
+
+    public void addQueryParams(Map<String, String> params) {
+        context.getRequest().getQueryParams().putAll(params);
+    }
+
+    public void addUrlParam(String key, String value) {
+        context.getRequest().getUrlParams().put(key, value);
+    }
+
+    public void addUrlParams(Map<String, String> params) {
+        context.getRequest().getUrlParams().putAll(params);
+    }
+
+    public void setQueryParams(Map<String, String> params) {
+        context.getRequest().setQueryParams(params);
+    }
+
+    public void setUrlParams(Map<String, String> params) {
+        context.getRequest().setUrlParams(params);
+    }
+
+    public String getResponseStatusCode() {
+        return String.valueOf(context.getResponse().getStatusCode());
+    }
+
+    public List<String> getResponseHeaderValue(String name) {
+        return context.getResponse().getHeaders().stream()
+                .filter(h -> h.getName().equals(name))
+                .findFirst()
+                .get()
+                .getValue();
+    }
+
+    public String getResponseBody(){
+        return bodyAction.body2String(context.getResponse().getBody());
+    }
+
+    public String getResponseBodyValue(String jsonPath){
+        Object body = context.getResponse().getBody();
+        Object valueByBodyPath = bodyAction.getValueByBodyPath(jsonPath, body);
+
+        return bodyAction.body2String(valueByBodyPath);
+    }
+
+    public Object setValuesInPojo(String shemName, Map<String, String> values) {
+        String pojoPath = String.format("%s.%s", System.getProperty(POJO_REST_TARGET_PACKAGE_PROPERTY), shemName);
+        Object pojoValue = getPojoValue(pojoPath);
+
+        return bodyAction.setValuesByBodyPath(pojoValue, values);
+    }
+
+}
