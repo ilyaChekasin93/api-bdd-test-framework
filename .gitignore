@@ -1,4 +1,4 @@
 target/
 allure-results/
 .idea/
-apibddtestframework.iml
+api-bdd-test-framework.iml
