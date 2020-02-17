@@ -103,14 +103,14 @@ public class RestStep {
     @Step("check that header {headerName} was found")
     public void checkHeaderExistsStep(String headerName) {
         List<String> headerValue = action.getRequestHeaderValue(headerName);
-        String assertMessage = String.format("Value header %s must not be null", headerName);
+        String assertMessage = String.format("Value header %s must not be empty", headerName);
         Assert.isTrue(headerValue.size() > 0, assertMessage);
     }
 
     @Step("check that header {headerName} was not found")
     public void checkHeaderNotExistsStep(String headerName) {
         List<String> headerValue = action.getRequestHeaderValue(headerName);
-        String assertMessage = String.format("Value header %s must be null", headerName);
+        String assertMessage = String.format("Value header %s must be empty", headerName);
         Assert.isTrue(headerValue.size() == 0, assertMessage);
     }
 
@@ -170,7 +170,7 @@ public class RestStep {
 
     @Step("check that in response body value by jsonPath {jsonPath} is equal to {value}")
     public void checkBodyPathValueEqualStep(String jsonPath, String value){
-        String pathValue = action.getResponseBodyValue(jsonPath);
+        String pathValue = action.getResponseBodyValue(jsonPath).replaceAll("\"", "");
         String assertMessage = String.format("%s must be equal %s", pathValue, value);
         Assert.isTrue(pathValue.equals(value), assertMessage);
     }

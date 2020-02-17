@@ -1,7 +1,6 @@
 package api.bdd.test.framework.action;
 
 import api.bdd.test.framework.client.http.HttpClient;
-import api.bdd.test.framework.client.http.dto.Header;
 import api.bdd.test.framework.client.http.dto.Method;
 import api.bdd.test.framework.client.http.dto.Request;
 import api.bdd.test.framework.client.http.dto.Response;
@@ -68,8 +67,7 @@ public class RestAction {
             headerValues.add(value);
         }
 
-        Header header = new Header(name, headerValues);
-        context.getRequest().getHeaders().add(header);
+        context.getRequest().getHeaders().put(name, headerValues);
     }
 
     public void addHeader(String name, List<String> values){
@@ -79,16 +77,13 @@ public class RestAction {
             headerValues.addAll(values);
         }
 
-        Header header = new Header(name, headerValues);
-        context.getRequest().getHeaders().add(header);
+        context.getRequest().getHeaders().put(name, headerValues);
     }
 
     public List<String> getRequestHeaderValue(String name){
-        Optional<Header> optionalHeader = context.getRequest().getHeaders().stream()
-                .filter(h -> h.getName().equals(name))
-                .findFirst();
+        Map<String, List<String>> headers = context.getRequest().getHeaders();
 
-        return optionalHeader.isPresent() ? optionalHeader.get().getValue() : new ArrayList<>();
+        return getHeaderValue(headers, name);
     }
 
     public void addHeaders(Map<String, String> headers){
@@ -97,12 +92,14 @@ public class RestAction {
     }
 
     public void setHeaders(Map<String, String> headers){
-        List<Header> headerList = headers
+        Map<String, List<String>> newHeaders = headers
                 .entrySet().stream()
-                .map(h -> new Header(h.getKey(), Collections.singletonList(h.getValue())))
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(
+                        h -> h.getKey(),
+                        h -> Collections.singletonList(h.getValue())
+                ));
 
-        context.getRequest().setHeaders(headerList);
+        context.getRequest().setHeaders(newHeaders);
     }
 
     public void addQueryParam(String key, String value) {
@@ -134,11 +131,9 @@ public class RestAction {
     }
 
     public List<String> getResponseHeaderValue(String name) {
-        return context.getResponse().getHeaders().stream()
-                .filter(h -> h.getName().equals(name))
-                .findFirst()
-                .get()
-                .getValue();
+        Map<String, List<String>> headers = context.getResponse().getHeaders();
+
+        return getHeaderValue(headers, name);
     }
 
     public String getResponseBody(){
@@ -157,6 +152,14 @@ public class RestAction {
         Object pojoValue = getPojoValue(pojoPath);
 
         return bodyAction.setValuesByBodyPath(pojoValue, values);
+    }
+
+    private List<String> getHeaderValue(Map<String, List<String>> headers, String name) {
+        Optional<Map.Entry<String, List<String>>> entryOptional = headers.entrySet().stream()
+                .filter(h -> h.getKey().equals(name))
+                .findFirst();
+
+        return entryOptional.isPresent() ? entryOptional.get().getValue() : new ArrayList<>();
     }
 
 }

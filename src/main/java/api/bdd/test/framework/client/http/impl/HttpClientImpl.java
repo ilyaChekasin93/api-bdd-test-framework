@@ -1,6 +1,5 @@
 package api.bdd.test.framework.client.http.impl;
 
-import api.bdd.test.framework.client.http.dto.Header;
 import api.bdd.test.framework.client.http.impl.handler.CustomErrorHandler;
 import api.bdd.test.framework.client.http.dto.Request;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,7 +15,6 @@ import api.bdd.test.framework.client.http.dto.Response;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @Component
@@ -52,21 +50,16 @@ public class HttpClientImpl implements HttpClient {
     }
 
     private Response ResponseEntity2Response(ResponseEntity<Object> responseEntity) {
-        Map<String, List<String>> values = responseEntity.getHeaders();
+        Map<String, List<String>> headers = responseEntity.getHeaders();
         Object body = responseEntity.getBody();
         int statusCode = responseEntity.getStatusCodeValue();
-
-        List<Header> headers = values
-                .entrySet().stream()
-                .map(v -> new Header(v.getKey(), v.getValue()))
-                .collect(Collectors.toList());
 
         return new Response(body, statusCode, headers);
     }
 
-    private HttpHeaders listHeader2HttpHeaders(List<Header> headers){
+    private HttpHeaders listHeader2HttpHeaders(Map<String, List<String>> headers){
         HttpHeaders httpHeaders = new HttpHeaders();
-        headers.stream().forEach(h -> httpHeaders.put(h.getName(), h.getValue()));
+        headers.entrySet().stream().forEach(h -> httpHeaders.put(h.getKey(), h.getValue()));
         return httpHeaders;
     }
 

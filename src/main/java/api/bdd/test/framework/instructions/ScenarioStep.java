@@ -176,14 +176,14 @@ public class ScenarioStep {
         restStep.checkBodyEmptyStep();
     }
 
-    @Then("^response body value by jsonPath '(.*)' should be found")
+    @Then("^response body value by jsonPath '(.*)' should exist")
     public void thenBodyPathExists(String jsonPath){
         jsonPath = storageStep.evaluateValueStep(jsonPath);
 
         restStep.checkBodyPathExistsStep(jsonPath);
     }
 
-    @Then("^response body value by jsonPath '(.*)' should be equal to '(.*)'$")
+    @Then("^response body value by jsonPath '(.*)' should equal to '(.*)'$")
     public void thenBodyPathValueEqual(String jsonPath, String value){
         jsonPath = storageStep.evaluateValueStep(jsonPath);
         value = storageStep.evaluateValueStep(value);
@@ -191,7 +191,7 @@ public class ScenarioStep {
         restStep.checkBodyPathValueEqualStep(jsonPath, value);
     }
 
-    @Then("^response body value by jsonPath '(.*)' should not be equal to '(.*)'$")
+    @Then("^response body value by jsonPath '(.*)' should not equal to '(.*)'$")
     public void thenBodyPathValueNotEqual(String jsonPath, String value){
         jsonPath = storageStep.evaluateValueStep(jsonPath);
         value = storageStep.evaluateValueStep(value);

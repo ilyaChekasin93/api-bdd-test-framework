@@ -18,7 +18,7 @@ public class Request {
 
     private Object body;
 
-    private List<Header> headers;
+    private Map<String, List<String>> headers;
 
     private Map<String, String> queryParams;
 
@@ -26,7 +26,7 @@ public class Request {
 
     public Request() {
         body = "{}";
-        headers = new ArrayList<>();
+        headers = new HashMap<>();
         queryParams = new HashMap<>();
         urlParams = new HashMap<>();
     }
