@@ -29,23 +29,4 @@ public class StorageStep {
         values.entrySet().stream().forEach(e -> saveVariableStep(e.getKey(), e.getValue()));
     }
 
-    @Step("evaluate value {value}")
-    public <T> T evaluateValueStep(String value) {
-        return action.evaluateValue(value);
-    }
-
-    public <T> Map<T, T> evaluateValuesStep(Map<String, String> values) {
-        return values.entrySet().stream()
-                .collect(Collectors.toMap(
-                        e -> evaluateValueStep(e.getKey()),
-                        e -> evaluateValueStep(e.getValue())
-                ));
-    }
-
-    public <T> List<T> evaluateValuesStep(List<String> values) {
-        return values.stream()
-                .map(e -> (T) evaluateValueStep(e))
-                .collect(Collectors.toList());
-    }
-
 }
