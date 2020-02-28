@@ -13,15 +13,11 @@ public class Helpers {
     }
 
     public static Object getPojoValue(String pojoPath) {
-        Object value = null;
-
         try {
-            value = Class.forName(pojoPath).newInstance();
+            return Class.forName(pojoPath).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(String.format("Error: '%s' get pojo '%s' value", e.getMessage(), pojoPath));
         }
-
-        return value;
     }
 
 }

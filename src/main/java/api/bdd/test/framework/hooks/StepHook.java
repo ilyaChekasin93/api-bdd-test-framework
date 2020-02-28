@@ -22,7 +22,7 @@ public class StepHook {
         this.storageAction = storageAction;
     }
 
-    @Around("execution(* api.bdd.test.framework.instructions.StepDefinition.*(..))")
+    @Around("execution(* api.bdd.test.framework.instructions.ScenarioStepDefinition.*(..))")
     public void aroundScenarioStep(ProceedingJoinPoint joinPoint) {
         Object[] currentArgs = joinPoint.getArgs();
         Object[] evaluatedArgs = Arrays.stream(currentArgs).map(a -> evaluateScenarioStepArg(a)).toArray(Object[]::new);
@@ -30,7 +30,7 @@ public class StepHook {
         try {
             joinPoint.proceed(evaluatedArgs);
         } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            throw new RuntimeException(String.format("Error: '%s' evaluate value", throwable.getMessage()));
         }
     }
 

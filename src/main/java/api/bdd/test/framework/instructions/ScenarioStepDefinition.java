@@ -14,7 +14,7 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class StepDefinition {
+public class ScenarioStepDefinition {
 
     private RestStep restStep;
 
@@ -23,7 +23,7 @@ public class StepDefinition {
     private SoapStep soapStep;
 
 
-    public StepDefinition(RestStep restStep, SoapStep soapStep, StorageStep storageStep){
+    public ScenarioStepDefinition(RestStep restStep, SoapStep soapStep, StorageStep storageStep){
         this.restStep = restStep;
         this.soapStep = soapStep;
         this.storageStep = storageStep;

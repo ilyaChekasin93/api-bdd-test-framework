@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 
 @Slf4j
-public class ScenarioHooks {
+public class ScenarioHook {
 
     private RestContext restContext;
 
@@ -25,7 +25,7 @@ public class ScenarioHooks {
     private StorageContext storageContext;
 
 
-    public ScenarioHooks(RestContext restContext, SoapContext soapContext, StorageContext storageContext){
+    public ScenarioHook(RestContext restContext, SoapContext soapContext, StorageContext storageContext){
         this.restContext = restContext;
         this.soapContext = soapContext;
         this.storageContext = storageContext;
