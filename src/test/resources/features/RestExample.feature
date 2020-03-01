@@ -1,6 +1,6 @@
-Feature: Example
+Feature: RestExample
 
-  Scenario: Example scenario
+  Scenario: Rest Example scenario
      Given baseUrl is 'http://petstore.swagger.io/v2'
 
      And user add request headers:

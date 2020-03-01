@@ -23,15 +23,11 @@ public class StepHook {
     }
 
     @Around("execution(* api.bdd.test.framework.instructions.ScenarioStepDefinition.*(..))")
-    public void aroundScenarioStep(ProceedingJoinPoint joinPoint) {
+    public void aroundScenarioStep(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] currentArgs = joinPoint.getArgs();
         Object[] evaluatedArgs = Arrays.stream(currentArgs).map(a -> evaluateScenarioStepArg(a)).toArray(Object[]::new);
 
-        try {
-            joinPoint.proceed(evaluatedArgs);
-        } catch (Throwable throwable) {
-            throw new RuntimeException(String.format(throwable.getMessage()));
-        }
+        joinPoint.proceed(evaluatedArgs);
     }
 
     private Object evaluateScenarioStepArg(Object argument){

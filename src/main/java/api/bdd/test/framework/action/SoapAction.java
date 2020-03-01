@@ -91,9 +91,7 @@ public class SoapAction {
 
     public Object getResponseBodyValue(String xPath){
         Object responseBody = context.getSoapResponse().getBody();
-        Object value = bodyAction.getValueByBodyPath(xPath, responseBody);
-
-        return bodyAction.body2String(value);
+        return bodyAction.getValueByBodyPath(xPath, responseBody).toString();
     }
 
     public String getResponseBody(){
