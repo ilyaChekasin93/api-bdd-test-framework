@@ -16,7 +16,7 @@ public class Helpers {
         try {
             return Class.forName(pojoPath).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            throw new RuntimeException(String.format("Error: '%s' get pojo '%s' value", e.getMessage(), pojoPath));
+            throw new RuntimeException(String.format("Error: '%s' get pojo with name '%s'", e.getMessage(), pojoPath));
         }
     }
 

@@ -5,7 +5,7 @@ Feature: example
      And user add request header with name 'user-agent' and value 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36'
      And user add request header with name 'Content-Type' and value 'application/json'
 
-     And user add values to pojo with name 'UsersPOSTrequestCheam':
+     And user add values to pojo with name 'Pet':
         | $.name | morpheus |
         | $.job  | leader   |
 
