@@ -30,7 +30,7 @@ public class StepHook {
         try {
             joinPoint.proceed(evaluatedArgs);
         } catch (Throwable throwable) {
-            throw new RuntimeException(String.format("Error: '%s' evaluate value", throwable.getMessage()));
+            throw new RuntimeException(String.format(throwable.getMessage()));
         }
     }
 
