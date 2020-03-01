@@ -1,5 +1,5 @@
 ## API BDD test framework
-This is concept api bdd test framework
+This is concept api bdd test framework.
 Supports rest and soap clients
 
 ### Technology
