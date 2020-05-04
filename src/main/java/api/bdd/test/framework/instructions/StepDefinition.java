@@ -14,7 +14,7 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ScenarioStepDefinition {
+public class StepDefinition {
 
     private RestStep restStep;
 
@@ -23,7 +23,7 @@ public class ScenarioStepDefinition {
     private SoapStep soapStep;
 
 
-    public ScenarioStepDefinition(RestStep restStep, SoapStep soapStep, StorageStep storageStep){
+    public StepDefinition(RestStep restStep, SoapStep soapStep, StorageStep storageStep){
         this.restStep = restStep;
         this.soapStep = soapStep;
         this.storageStep = storageStep;
@@ -175,6 +175,11 @@ public class ScenarioStepDefinition {
     @Given("^user set SOAP request body '(.*)'$")
     public void whenSetSoapBody(String body) {
         soapStep.setBodyStep(body);
+    }
+
+    @Given("^user set SOAP action '(.*)'$")
+    public void whenSetSoapAction(String body) {
+        soapStep.setSoapActionStep(body);
     }
 
     @Given("^user add values to SOAP pojo with name '(.*)':$")

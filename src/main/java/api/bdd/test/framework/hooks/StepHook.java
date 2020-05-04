@@ -1,46 +1,30 @@
 package api.bdd.test.framework.hooks;
 
-import api.bdd.test.framework.action.StorageAction;
+import api.bdd.test.framework.transform.ArgumentEvaluator;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Aspect
 @Component
 public class StepHook {
 
-    private StorageAction storageAction;
+    private ArgumentEvaluator evaluator;
 
 
-    public StepHook(StorageAction storageAction){
-        this.storageAction = storageAction;
+    public StepHook(ArgumentEvaluator evaluator) {
+        this.evaluator = evaluator;
     }
 
-    @Around("execution(* api.bdd.test.framework.instructions.ScenarioStepDefinition.*(..))")
+    @Around("bean(*StepDefinition)")
     public void aroundScenarioStep(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] currentArgs = joinPoint.getArgs();
-        Object[] evaluatedArgs = Arrays.stream(currentArgs).map(a -> evaluateScenarioStepArg(a)).toArray(Object[]::new);
-
+        Object[] evaluatedArgs = Arrays.stream(currentArgs).map(a -> evaluator.evaluateStepArg(a)).toArray(Object[]::new);
         joinPoint.proceed(evaluatedArgs);
-    }
-
-    private Object evaluateScenarioStepArg(Object argument){
-
-        if(argument instanceof List){
-            argument = storageAction.evaluateValues((List) argument);
-        }else if (argument instanceof Map){
-            argument = storageAction.evaluateValues((Map) argument);
-        }else {
-            argument = storageAction.evaluateValue(argument);
-        }
-
-        return argument;
     }
 
 }

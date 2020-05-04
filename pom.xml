@@ -32,6 +32,7 @@
         <swagger.codegen.version>2.3.1</swagger.codegen.version>
         <swagger.annotations.version>1.5.0</swagger.annotations.version>
         <threetenbp.version>1.4.1</threetenbp.version>
+        <gson.version>2.8.6</gson.version>
 
         <calculator.wsdl.url>http://www.dneonline.com/calculator.asmx?WSDL</calculator.wsdl.url>
         <swagger.url>https://petstore.swagger.io/v2/swagger.json</swagger.url>
@@ -127,6 +128,12 @@
             <groupId>org.threeten</groupId>
             <artifactId>threetenbp</artifactId>
             <version>${threetenbp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
         </dependency>
     </dependencies>
 
