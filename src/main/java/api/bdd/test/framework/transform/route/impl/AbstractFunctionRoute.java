@@ -6,7 +6,7 @@ import java.util.List;
 import static api.bdd.test.framework.utils.Helpers.getFullMath;
 
 
-public abstract class AbstractFunctionRoute extends BaseRoute {
+public abstract class AbstractFunctionRoute extends AbstractRoute {
 
     protected String expression;
 

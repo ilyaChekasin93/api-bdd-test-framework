@@ -3,7 +3,7 @@ package api.bdd.test.framework.transform.route.impl;
 import lombok.Setter;
 
 
-public abstract class AbstractFunctionWithoutArgsRoute extends BaseRoute {
+public abstract class AbstractFunctionWithoutArgsRoute extends AbstractRoute {
 
     @Setter
     protected String expression;

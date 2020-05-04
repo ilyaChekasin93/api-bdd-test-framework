@@ -2,7 +2,6 @@ package api.bdd.test.framework.transform;
 
 import api.bdd.test.framework.transform.dto.ExpressionPart;
 import api.bdd.test.framework.transform.dto.ExpressionScope;
-import api.bdd.test.framework.transform.factory.TransformRouteFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -14,7 +13,7 @@ public class ArgumentParser {
 
     private List<ExpressionScope> bracketsList;
 
-    public ArgumentParser(TransformRouteFactory factory){
+    public ArgumentParser(TransformRouteManager factory){
         this.bracketsList = factory.getBrackets();
     }
 

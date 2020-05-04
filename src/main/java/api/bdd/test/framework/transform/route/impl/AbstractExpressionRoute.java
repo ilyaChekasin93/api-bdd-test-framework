@@ -2,13 +2,10 @@ package api.bdd.test.framework.transform.route.impl;
 
 import lombok.Setter;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static api.bdd.test.framework.utils.Helpers.getFullMath;
 
-
-public abstract class AbstractExpressionRoute extends BaseRoute {
+public abstract class AbstractExpressionRoute extends AbstractRoute {
 
     @Setter
     protected String expression;

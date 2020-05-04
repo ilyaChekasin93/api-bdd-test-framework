@@ -3,7 +3,7 @@ package api.bdd.test.framework.transform.route.impl;
 import api.bdd.test.framework.transform.route.TransformRoute;
 
 
-public abstract class BaseRoute implements TransformRoute {
+public abstract class AbstractRoute implements TransformRoute {
 
     public char getStartPatternChar(){
         String pattern = getPattern();

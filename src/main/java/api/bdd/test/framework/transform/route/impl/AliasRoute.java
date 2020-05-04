@@ -1,7 +1,6 @@
 package api.bdd.test.framework.transform.route.impl;
 
 import api.bdd.test.framework.action.StorageAction;
-import api.bdd.test.framework.transform.route.TransformRoute;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +8,7 @@ import static api.bdd.test.framework.utils.Helpers.getGroupOneMath;
 
 
 @Component
-public class AliasRoute extends BaseRoute {
+public class AliasRoute extends AbstractRoute {
 
     private static final String PATTERN = "\\$\\{([^\\[\\]]+)\\}";
 

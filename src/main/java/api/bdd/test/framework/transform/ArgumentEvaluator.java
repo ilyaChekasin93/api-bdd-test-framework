@@ -1,6 +1,5 @@
 package api.bdd.test.framework.transform;
 
-import api.bdd.test.framework.transform.factory.TransformRouteFactory;
 import api.bdd.test.framework.transform.route.TransformRoute;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +12,9 @@ public class ArgumentEvaluator {
 
     private ArgumentParser argumentParser;
 
-    private TransformRouteFactory strategyFactory;
+    private TransformRouteManager strategyFactory;
 
-    public ArgumentEvaluator(ArgumentParser argumentParser, TransformRouteFactory strategyFactory) {
+    public ArgumentEvaluator(ArgumentParser argumentParser, TransformRouteManager strategyFactory) {
         this.argumentParser = argumentParser;
         this.strategyFactory = strategyFactory;
     }

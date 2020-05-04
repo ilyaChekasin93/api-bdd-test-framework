@@ -1,4 +1,4 @@
-package api.bdd.test.framework.transform.factory;
+package api.bdd.test.framework.transform;
 
 import api.bdd.test.framework.transform.dto.ExpressionScope;
 import api.bdd.test.framework.transform.route.TransformRoute;
@@ -9,22 +9,22 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static api.bdd.test.framework.utils.Helpers.findMuth;
+import static api.bdd.test.framework.utils.Helpers.findMath;
 
 @Component
-public class TransformRouteFactory {
+public class TransformRouteManager {
 
     private List<TransformRoute> transformRoutes;
 
 
-    public TransformRouteFactory(ListableBeanFactory beanFactory){
+    public TransformRouteManager(ListableBeanFactory beanFactory){
         Collection<TransformRoute> expressionStrategyCollection = beanFactory.getBeansOfType(TransformRoute.class).values();
         transformRoutes = expressionStrategyCollection.stream().collect(Collectors.toList());
     }
 
     public TransformRoute getRoute(String value){
         TransformRoute route = transformRoutes.stream()
-                .filter(e -> findMuth(value, e.getPattern())).findFirst()
+                .filter(e -> findMath(value, e.getPattern())).findFirst()
                 .orElseThrow(() -> new RuntimeException(String.format("Pattern for %s not found", value)));
 
         route.setExpression(value);

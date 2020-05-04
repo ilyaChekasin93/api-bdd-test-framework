@@ -47,7 +47,7 @@ public class Helpers {
         return result;
     }
 
-    public static boolean findMuth(String value, String patternValue){
+    public static boolean findMath(String value, String patternValue){
         final Pattern pattern = Pattern.compile(patternValue);
         final Matcher matcher = pattern.matcher(value);
         return matcher.find();
