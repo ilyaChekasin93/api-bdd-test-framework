@@ -10,8 +10,6 @@ public abstract class AbstractExpressionRoute extends AbstractRoute {
     @Setter
     protected String expression;
 
-    protected List<String> arguments;
-
     private static final String START_EXPRESSION_PATTERN = "\\[";
 
     private static final String END_EXPRESSION_PATTERN = "\\]";

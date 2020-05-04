@@ -32,7 +32,7 @@ public class TransformRouteManager {
         return route;
     }
 
-    public List<ExpressionScope> getBrackets(){
+    public List<ExpressionScope> getRoutScopes(){
         return transformRoutes.stream().map(r -> {
             Character startChar = r.getStartPatternChar();
             Character endChar = r.getEndPatternChar();
