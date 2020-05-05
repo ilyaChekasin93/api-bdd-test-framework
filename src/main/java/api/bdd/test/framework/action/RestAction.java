@@ -61,7 +61,7 @@ public class RestAction {
     public void addHeader(String name, String value) {
         List<String> headerValues = getRequestHeaderValue(name);
 
-        if(headerValues.size() == 0) {
+        if(headerValues.isEmpty()) {
             headerValues = Collections.singletonList(value);
         } else {
             headerValues.add(value);
@@ -73,7 +73,7 @@ public class RestAction {
     public void addHeader(String name, List<String> values){
         List<String> headerValues = getRequestHeaderValue(name);
 
-        if (headerValues.size() == 0){
+        if (headerValues.isEmpty()){
             headerValues.addAll(values);
         }
 

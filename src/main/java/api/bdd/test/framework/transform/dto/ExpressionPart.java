@@ -13,8 +13,10 @@ public class ExpressionPart {
         this.value = value;
     }
 
-    public void addChar(char newChar){
+    public ExpressionPart addChar(char newChar){
         value = value + newChar;
+
+        return this;
     }
 
     public void close(){

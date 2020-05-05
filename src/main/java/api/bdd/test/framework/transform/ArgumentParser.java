@@ -20,7 +20,7 @@ public class ArgumentParser {
     public List<String> getArgumentParts(String arg){
         List<ExpressionPart> allParts = getExpressionParts(arg);
         List<ExpressionPart> closedParts = getClosedExpressionParts(allParts);
-        return closedParts.size() == 0 ? new ArrayList<>() : getPartsValues(closedParts);
+        return closedParts.isEmpty() ? new ArrayList<>() : getPartsValues(closedParts);
     }
 
     private List<String> getPartsValues(List<ExpressionPart> parts){
@@ -43,10 +43,11 @@ public class ArgumentParser {
 
             if (isOpenChar(curChar)) {
                 String symbol = String.valueOf(curChar);
-                parts.add(new ExpressionPart(symbol));
+                ExpressionPart newExpressionPart = new ExpressionPart(symbol);
+                parts.add(newExpressionPart);
 
             } else if (isCloseChar(curChar)) {
-                if(parts.size() != 0) {
+                if(!parts.isEmpty()) {
                     char lastOpenChar = getCharLastOpenPart(parts);
                     char lastEndChar = getScopeEndChar(lastOpenChar);
                     if (curChar == lastEndChar)
@@ -59,12 +60,7 @@ public class ArgumentParser {
     }
 
     private List<ExpressionPart> addCharInOpenParts(List<ExpressionPart> parts, char newChar) {
-        return parts.stream().map(p -> {
-            if (!p.isClosed())
-                p.addChar(newChar);
-
-            return p;
-        }).collect(Collectors.toList());
+        return parts.stream().map(p -> !p.isClosed() ? p.addChar(newChar) : p).collect(Collectors.toList());
     }
 
     private void closeLastPart(List<ExpressionPart> parts){

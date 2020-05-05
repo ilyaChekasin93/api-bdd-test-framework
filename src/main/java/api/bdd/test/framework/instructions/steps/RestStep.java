@@ -111,7 +111,7 @@ public class RestStep {
     public void checkHeaderNotExistsStep(String headerName) {
         List<String> headerValue = action.getRequestHeaderValue(headerName);
         String assertMessage = String.format("Value header %s must be empty", headerName);
-        Assert.isTrue(headerValue.size() == 0, assertMessage);
+        Assert.isTrue(headerValue.isEmpty(), assertMessage);
     }
 
     @Step("check that response header with name {headerName} has value {headerValue}")
