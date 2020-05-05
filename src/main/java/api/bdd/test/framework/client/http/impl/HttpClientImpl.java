@@ -35,7 +35,7 @@ public class HttpClientImpl implements HttpClient {
         HttpEntity httpEntity = getHttpEntity(requestHttpMethod, requestBody, requestHttpHeaders);
         Map<String, String> queryParams = request.getQueryParams();
 
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getBaseUrl() + request.getResource());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getBaseUrl()).path(request.getResource());
 
         request.getUrlParams()
                 .entrySet().stream()
