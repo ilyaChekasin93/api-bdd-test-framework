@@ -5,6 +5,8 @@ import api.bdd.test.framework.client.soap.dto.SoapRequest;
 import api.bdd.test.framework.client.soap.dto.SoapResponse;
 import api.bdd.test.framework.context.SoapContext;
 import api.bdd.test.framework.action.body.BodyAction;
+import api.bdd.test.framework.exception.NotValidUrlException;
+import api.bdd.test.framework.exception.ResourceNotAvailableException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -29,7 +31,7 @@ public class SoapAction {
     private BodyAction bodyAction;
 
 
-    public SoapAction(SoapContext context, @Lazy SoapClient client, @Qualifier("xmlBodyAction") BodyAction bodyAction){
+    public SoapAction(SoapContext context, @Lazy SoapClient client, @Qualifier("xmlBodyAction") BodyAction bodyAction) {
         this.context = context;
         this.client = client;
         this.bodyAction = bodyAction;
@@ -52,8 +54,8 @@ public class SoapAction {
         SoapResponse response;
         try {
             response = client.executeRequest(request);
-        }catch (WebServiceIOException e){
-            throw new RuntimeException(String.format("resource %s not available", request.getUrl()));
+        } catch (WebServiceIOException e) {
+            throw new ResourceNotAvailableException(request.getUrl());
         }
 
         context.setSoapResponse(response);
@@ -65,11 +67,14 @@ public class SoapAction {
         try {
             packs = new URI(soapAction).getHost().split("\\.");
         } catch (URISyntaxException e) {
-            throw new RuntimeException(String.format("%s is not a URL", soapAction));
+            throw new NotValidUrlException(soapAction);
         }
 
         final String[] pojoPath = {""};
-        Arrays.stream(reverse(packs)).forEach(p -> pojoPath[0] = pojoPath[0].equals("") ? p : String.format("%s.%s", pojoPath[0], p));
+        Arrays.stream(reverse(packs))
+                .forEach(p -> pojoPath[0] = pojoPath[0].equals("")
+                                ? p
+                                : String.format("%s.%s", pojoPath[0], p));
 
         context.getSoapRequest().setPojoPath(pojoPath[0]);
         context.getSoapRequest().setSoapAction(soapAction);
@@ -89,12 +94,12 @@ public class SoapAction {
         return bodyAction.setValueByBodyPath(body, xPath, value);
     }
 
-    public Object getResponseBodyValue(String xPath){
+    public Object getResponseBodyValue(String xPath) {
         Object responseBody = context.getSoapResponse().getBody();
         return bodyAction.getValueByBodyPath(xPath, responseBody).toString();
     }
 
-    public String getResponseBody(){
+    public String getResponseBody() {
         Object responseBody = context.getSoapResponse().getBody();
 
         return bodyAction.body2String(responseBody);

@@ -1,5 +1,7 @@
 package api.bdd.test.framework.utils;
 
+import api.bdd.test.framework.exception.GettingPojoException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +23,7 @@ public class Helpers {
         try {
             return Class.forName(pojoPath).newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            throw new RuntimeException(String.format("Error: '%s' get pojo with name '%s'", e.getMessage(), pojoPath));
+            throw new GettingPojoException(pojoPath, e.getMessage());
         }
     }
 

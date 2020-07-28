@@ -1,5 +1,6 @@
 package api.bdd.test.framework.transform;
 
+import api.bdd.test.framework.exception.PatternNotFoundException;
 import api.bdd.test.framework.transform.dto.ExpressionScope;
 import api.bdd.test.framework.transform.route.TransformRoute;
 import org.springframework.beans.factory.ListableBeanFactory;
@@ -25,7 +26,7 @@ public class TransformRouteManager {
     public TransformRoute getRoute(String value){
         TransformRoute route = transformRoutes.stream()
                 .filter(e -> findMath(value, e.getPattern())).findFirst()
-                .orElseThrow(() -> new RuntimeException(String.format("Pattern for %s not found", value)));
+                .orElseThrow(() -> new PatternNotFoundException(value));
 
         route.setExpression(value);
 

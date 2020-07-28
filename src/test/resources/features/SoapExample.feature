@@ -1,6 +1,6 @@
-Feature: RestExample
+Feature: SoapExample
 
-  Scenario: Rest Example scenario
+  Scenario: Soap Example scenario
 
      Given user set web service URL 'http://www.dneonline.com/calculator.asmx'
      And user set SOAP action 'http://tempuri.org/Add'

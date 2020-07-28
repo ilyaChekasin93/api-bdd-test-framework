@@ -6,6 +6,7 @@ import api.bdd.test.framework.client.http.dto.Request;
 import api.bdd.test.framework.client.http.dto.Response;
 import api.bdd.test.framework.context.RestContext;
 import api.bdd.test.framework.action.body.BodyAction;
+import api.bdd.test.framework.exception.ResourceNotAvailableException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResourceAccessException;
@@ -43,7 +44,7 @@ public class RestAction {
         try {
             response = client.executeRequest(request);
         }catch (ResourceAccessException e){
-            throw new RuntimeException(String.format("resource %s not available", request.getBaseUrl() + resource));
+            throw new ResourceNotAvailableException(request.getBaseUrl() + resource);
         }
 
         context.setResponse(response);
