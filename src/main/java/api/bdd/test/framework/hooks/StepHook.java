@@ -11,6 +11,7 @@ import java.util.*;
 
 @Aspect
 @Component
+@SuppressWarnings("unused")
 public class StepHook {
 
     private ArgumentEvaluator evaluator;
@@ -23,7 +24,9 @@ public class StepHook {
     @Around("bean(*StepDefinition)")
     public void aroundScenarioStep(ProceedingJoinPoint joinPoint) throws Throwable {
         Object[] currentArgs = joinPoint.getArgs();
-        Object[] evaluatedArgs = Arrays.stream(currentArgs).map(a -> evaluator.evaluateStepArg(a)).toArray(Object[]::new);
+        Object[] evaluatedArgs = Arrays.stream(currentArgs)
+                .map(a -> evaluator.evaluateStepArg(a))
+                .toArray(Object[]::new);
         joinPoint.proceed(evaluatedArgs);
     }
 

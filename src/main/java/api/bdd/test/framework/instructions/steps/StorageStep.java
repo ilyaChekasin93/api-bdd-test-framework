@@ -16,7 +16,7 @@ public class StorageStep {
     private StorageAction action;
 
 
-    public StorageStep(StorageAction action){
+    public StorageStep(StorageAction action) {
         this.action = action;
     }
 
@@ -26,7 +26,7 @@ public class StorageStep {
     }
 
     public <T> void saveVariablesStep(Map<String, T> values) {
-        values.entrySet().stream().forEach(e -> saveVariableStep(e.getKey(), e.getValue()));
+        values.forEach(this::saveVariableStep);
     }
 
 }

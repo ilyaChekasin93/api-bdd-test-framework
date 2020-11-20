@@ -11,15 +11,9 @@ public interface BodyAction {
 
     Object setValueByBodyPath(Object body, String path, String value);
 
-    default Object setValuesByBodyPath(Object body, Map<String, String> values){
+    default Object setValuesByBodyPath(Object body, Map<String, String> values) {
         Object[] result = {body};
-        values.entrySet().stream().forEach(e ->
-                result[0] = setValueByBodyPath(
-                                result[0],
-                                e.getKey(),
-                                e.getValue()
-                )
-        );
+        values.forEach((key, value) -> result[0] = setValueByBodyPath(result[0], key, value));
         return result[0];
     }
 

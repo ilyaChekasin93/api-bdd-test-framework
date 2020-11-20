@@ -23,7 +23,7 @@ public class StepDefinition {
     private SoapStep soapStep;
 
 
-    public StepDefinition(RestStep restStep, SoapStep soapStep, StorageStep storageStep){
+    public StepDefinition(RestStep restStep, SoapStep soapStep, StorageStep storageStep) {
         this.restStep = restStep;
         this.soapStep = soapStep;
         this.storageStep = storageStep;
@@ -135,28 +135,28 @@ public class StepDefinition {
     }
 
     @Then("^response body value by jsonPath '(.*)' should exist")
-    public void thenBodyPathExists(String jsonPath){
+    public void thenBodyPathExists(String jsonPath) {
         restStep.checkBodyPathExistsStep(jsonPath);
     }
 
     @Then("^response body value by jsonPath '(.*)' should equal to '(.*)'$")
-    public void thenBodyPathValueEqual(String jsonPath, String value){
+    public void thenBodyPathValueEqual(String jsonPath, String value) {
         restStep.checkBodyPathValueEqualStep(jsonPath, value);
     }
 
     @Then("^response body value by jsonPath '(.*)' should not equal to '(.*)'$")
-    public void thenBodyPathValueNotEqual(String jsonPath, String value){
+    public void thenBodyPathValueNotEqual(String jsonPath, String value) {
         restStep.checkBodyPathValueNotEqualStep(jsonPath, value);
     }
 
     @Then("^user save response header value '(.*)' as '(.*)' variable$")
-    public void thenResponseHeader(String headerName, String headerAlias){
+    public void thenResponseHeader(String headerName, String headerAlias) {
         List<String> headerValue = restStep.getResponseHeaderStep(headerName);
         storageStep.saveVariableStep(headerAlias, headerValue);
     }
 
     @Then("^user save response body value by jsonPath '(.*)' as '(.*)' variable$")
-    public void thenResponseJsonPath(String jsonPath, String jsonPathAlias){
+    public void thenResponseJsonPath(String jsonPath, String jsonPathAlias) {
         Object jsonPathValue = restStep.getValueByJsonPathStep(jsonPath);
         storageStep.saveVariableStep(jsonPathAlias, jsonPathValue);
     }
@@ -189,23 +189,23 @@ public class StepDefinition {
     }
 
     @Then("^SOAP response body value on xPath '(.*)' should not be empty$")
-    public void thenSoapBodyPathExists(String xPath){
+    public void thenSoapBodyPathExists(String xPath) {
         soapStep.checkBodyPathExistsStep(xPath);
     }
 
     @Then("^user save SOAP response body value by xPath '(.*)' as '(.*)' variable$")
-    public void thenSoapResponseJsonPath(String xPath, String xPathAlias){
+    public void thenSoapResponseJsonPath(String xPath, String xPathAlias) {
         Object bodyValue = soapStep.getValueByXPathPathStep(xPath);
         storageStep.saveVariableStep(xPathAlias, bodyValue);
     }
 
     @Then("^SOAP response body value by xPath '(.*)' should be '(.*)'$")
-    public void thenSoapBodyPathValueEqual(String xPath, String value){
+    public void thenSoapBodyPathValueEqual(String xPath, String value) {
         soapStep.checkBodyPathValueEqualStep(xPath, value);
     }
 
     @Then("^SOAP response body value by xPath '(.*)' should not be '(.*)'$")
-    public void thenSoapBodyPathValueNotEqual(String xPath, String value){
+    public void thenSoapBodyPathValueNotEqual(String xPath, String value) {
         soapStep.checkBodyPathValueNotEqualStep(xPath, value);
     }
 

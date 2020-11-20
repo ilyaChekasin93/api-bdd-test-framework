@@ -17,29 +17,27 @@ public class JsonBodyAction implements BodyAction {
     private static ObjectMapper mapper;
 
 
-    public JsonBodyAction(ObjectMapper mapper){
+    public JsonBodyAction(ObjectMapper mapper) {
         this.mapper = mapper;
     }
 
-    public Object getValueByBodyPath(String jsonPath, Object json){
-        return getJsonDocument(
-                body2String(json)
-        ).read(jsonPath);
+    public Object getValueByBodyPath(String jsonPath, Object json) {
+        return getJsonDocument(body2String(json)).read(jsonPath);
     }
 
-    public Object setValueByBodyPath(Object json, String jsonPath, String value){
+    public Object setValueByBodyPath(Object json, String jsonPath, String value) {
         return JsonPath
-                .using(сonfiguration())
+                .using(configuration())
                 .parse(body2String(json))
                 .set(jsonPath, value)
                 .json();
     }
 
-    private ReadContext getJsonDocument(String json){
+    private ReadContext getJsonDocument(String json) {
         return JsonPath.parse(json);
     }
 
-    private Configuration сonfiguration(){
+    private Configuration configuration() {
         return Configuration
                 .builder()
                 .jsonProvider(new JacksonJsonNodeJsonProvider())
@@ -51,7 +49,7 @@ public class JsonBodyAction implements BodyAction {
         String jsonString = "";
         try {
             jsonString = mapper.writeValueAsString(json);
-        } catch(JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return jsonString;

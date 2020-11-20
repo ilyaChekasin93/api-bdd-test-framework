@@ -14,7 +14,7 @@ public class SoapStep {
     private SoapAction action;
 
 
-    public SoapStep(SoapAction action){
+    public SoapStep(SoapAction action) {
         this.action = action;
     }
 
@@ -44,29 +44,29 @@ public class SoapStep {
     }
 
     @Step("check that value by xPath {xPath} is present")
-    public void checkBodyPathExistsStep(String xPath){
+    public void checkBodyPathExistsStep(String xPath) {
         Assert.notNull(action.getResponseBodyValue(xPath), "Value must not be null");
     }
 
     @Step("get value by xPath {xPath}")
-    public Object getValueByXPathPathStep(String xPath){
+    public Object getValueByXPathPathStep(String xPath) {
         return action.getResponseBodyValue(xPath);
     }
 
     @Step("check that value by xPath {xPath} equal {value}")
-    public void checkBodyPathValueEqualStep(String xPath, String value){
+    public void checkBodyPathValueEqualStep(String xPath, String value) {
         String bodyPathValue = action.getResponseBodyValue(xPath).toString();
         Assert.isTrue(bodyPathValue.equals(value), String.format("%s must be equal %s", bodyPathValue, value));
     }
 
     @Step("check that value by xPath {xPath} not equal {value}")
-    public void checkBodyPathValueNotEqualStep(String xPath, String value){
+    public void checkBodyPathValueNotEqualStep(String xPath, String value) {
         String bodyPathValue = action.getResponseBodyValue(xPath).toString();
         Assert.isTrue(bodyPathValue.equals(value), String.format("%s must be equal %s", bodyPathValue, value));
     }
 
     @Step("check that value by xPath {xPath} contains {value}")
-    public void checkBodyContainsStep(String value){
+    public void checkBodyContainsStep(String value) {
         String bodyValue = action.getResponseBody();
         Assert.isTrue(bodyValue.contains(value), String.format("Value %s must contain %s", bodyValue, value));
     }

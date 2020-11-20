@@ -10,7 +10,7 @@ public class Helpers {
     public static final int FIRST_INT = 1;
 
     public static String[] reverse(String[] arr) {
-        for (int i = 0, j = arr.length-1; i < j; i++, j--) {
+        for (int i = 0, j = arr.length - 1; i < j; i++, j--) {
             String temp = arr[i];
             arr[i] = arr[j];
             arr[j] = temp;
@@ -27,7 +27,7 @@ public class Helpers {
         }
     }
 
-    public static String getFullMath(String value, String patternValue){
+    public static String getFullMath(String value, String patternValue) {
         final Pattern pattern = Pattern.compile(patternValue);
         final Matcher matcher = pattern.matcher(value);
 
@@ -38,7 +38,7 @@ public class Helpers {
         return result;
     }
 
-    public static String getGroupOneMath(String value, String patternValue){
+    public static String getGroupOneMath(String value, String patternValue) {
         final Pattern pattern = Pattern.compile(patternValue);
         final Matcher matcher = pattern.matcher(value);
 
@@ -49,7 +49,7 @@ public class Helpers {
         return result;
     }
 
-    public static boolean findMath(String value, String patternValue){
+    public static boolean findMath(String value, String patternValue) {
         final Pattern pattern = Pattern.compile(patternValue);
         final Matcher matcher = pattern.matcher(value);
         return matcher.find();

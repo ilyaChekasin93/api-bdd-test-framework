@@ -3,17 +3,17 @@ package api.bdd.test.framework.transform.dto;
 import lombok.Getter;
 
 @Getter
-public class ExpressionPart {
+public class ExpressionPartDto {
 
     private String value;
 
     private boolean isClosed;
 
-    public ExpressionPart(String value){
+    public ExpressionPartDto(String value){
         this.value = value;
     }
 
-    public ExpressionPart addChar(char newChar){
+    public ExpressionPartDto addChar(char newChar){
         value = value + newChar;
 
         return this;

@@ -17,7 +17,7 @@ public class RestStep {
     private RestAction action;
 
 
-    public RestStep(RestAction action){
+    public RestStep(RestAction action) {
         this.action = action;
     }
 
@@ -42,7 +42,7 @@ public class RestStep {
     }
 
     @Step("add headers {headers}")
-    public void addHeadersStep(Map<String, String> headers){
+    public void addHeadersStep(Map<String, String> headers) {
         action.addHeaders(headers);
     }
 
@@ -67,7 +67,7 @@ public class RestStep {
     }
 
     @Step("set headers {headers}")
-    public void setHeadersStep(Map<String, String> headers){
+    public void setHeadersStep(Map<String, String> headers) {
         action.setHeaders(headers);
     }
 
@@ -143,40 +143,40 @@ public class RestStep {
     }
 
     @Step("check that response body contains {bodyValue}")
-    public void checkBodyContainsStep(String value){
+    public void checkBodyContainsStep(String value) {
         String responseBody = action.getResponseBody();
         String assertMessage = String.format("Body %s must contain %s", responseBody, value);
         Assert.isTrue(responseBody.contains(value), assertMessage);
     }
 
     @Step("check that response body is empty")
-    public void checkBodyEmptyStep(){
+    public void checkBodyEmptyStep() {
         String responseBody = action.getResponseBody();
         String assertMessage = String.format("Body %s must be empty", responseBody);
         Assert.isTrue(responseBody.equals("{}"), assertMessage);
     }
 
     @Step("check that jsonPath {jsonPath} value is present")
-    public void checkBodyPathExistsStep(String jsonPath){
+    public void checkBodyPathExistsStep(String jsonPath) {
         String responseBodyValue = action.getResponseBodyValue(jsonPath);
         String assertMessage = String.format("Value %s by bodyPath %s must not be null", responseBodyValue, jsonPath);
         Assert.notNull(responseBodyValue, assertMessage);
     }
 
     @Step("get value by jsonPath {jsonPath}")
-    public String getValueByJsonPathStep(String jsonPath){
+    public String getValueByJsonPathStep(String jsonPath) {
         return action.getResponseBodyValue(jsonPath);
     }
 
     @Step("check that in response body value by jsonPath {jsonPath} is equal to {value}")
-    public void checkBodyPathValueEqualStep(String jsonPath, String value){
+    public void checkBodyPathValueEqualStep(String jsonPath, String value) {
         String pathValue = action.getResponseBodyValue(jsonPath).replaceAll("\"", "");
         String assertMessage = String.format("%s must be equal %s", pathValue, value);
         Assert.isTrue(pathValue.equals(value), assertMessage);
     }
 
     @Step("check that in response body value by jsonPath {jsonPath} is not equal to {value}")
-    public void checkBodyPathValueNotEqualStep(String jsonPath, String value){
+    public void checkBodyPathValueNotEqualStep(String jsonPath, String value) {
         String pathValue = action.getResponseBodyValue(jsonPath);
         String assertMessage = String.format("%s must not be equal %s", pathValue, value);
         Assert.isTrue(!pathValue.equals(value), assertMessage);

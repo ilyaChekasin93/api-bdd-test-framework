@@ -1,7 +1,7 @@
 package api.bdd.test.framework.transform;
 
 import api.bdd.test.framework.exception.PatternNotFoundException;
-import api.bdd.test.framework.transform.dto.ExpressionScope;
+import api.bdd.test.framework.transform.dto.ExpressionScopeDto;
 import api.bdd.test.framework.transform.route.TransformRoute;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.stereotype.Component;
@@ -33,11 +33,11 @@ public class TransformRouteManager {
         return route;
     }
 
-    public List<ExpressionScope> getRoutScopes(){
+    public List<ExpressionScopeDto> getRoutScopes(){
         return transformRoutes.stream().map(r -> {
             Character startChar = r.getStartPatternChar();
             Character endChar = r.getEndPatternChar();
-            return new ExpressionScope(startChar, endChar);
+            return new ExpressionScopeDto(startChar, endChar);
         }).collect(Collectors.toList());
     }
 

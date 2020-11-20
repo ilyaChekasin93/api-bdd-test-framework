@@ -16,6 +16,6 @@ public class StorageAction {
 
     public <T> void saveVariable(String alias, T value){ context.getVariable().put(alias, value); }
 
-    public  <T> T getVarValue(final String alias) { return (T) context.getVariable().get(alias); }
+    public <T> T getVarValue(final String alias) { return (T) context.getVariable().get(alias); }
 
 }

@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 
 @Slf4j
+@SuppressWarnings("unused")
 public class ScenarioHook {
 
     private RestContext restContext;
@@ -38,6 +39,11 @@ public class ScenarioHook {
 
     @After
     public void afterScenario(Scenario scenario) {
+        clearContexts();
+        log.info("Finished - {}", scenario.getName());
+    }
+
+    private void clearContexts() {
         restContext.setRequest(new Request());
         restContext.setResponse(new Response());
 
@@ -45,7 +51,5 @@ public class ScenarioHook {
         soapContext.setSoapResponse(new SoapResponse());
 
         storageContext.setVariable(new HashMap<>());
-
-        log.info("Finished - {}", scenario.getName());
     }
 }

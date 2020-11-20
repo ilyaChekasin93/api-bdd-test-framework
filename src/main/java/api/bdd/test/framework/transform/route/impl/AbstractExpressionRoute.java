@@ -2,8 +2,6 @@ package api.bdd.test.framework.transform.route.impl;
 
 import lombok.Setter;
 
-import java.util.List;
-
 
 public abstract class AbstractExpressionRoute extends AbstractRoute {
 
@@ -19,7 +17,8 @@ public abstract class AbstractExpressionRoute extends AbstractRoute {
         String firstArgPattern = getFirstArgPattern();
         String operationPattern = getOperationPattern();
         String secondArgPattern = getSecondArgPattern();
-        return START_EXPRESSION_PATTERN + firstArgPattern + " " + operationPattern + " " + secondArgPattern + END_EXPRESSION_PATTERN;
+        return String.format("%s%s %s %s%s",
+                START_EXPRESSION_PATTERN, firstArgPattern, operationPattern, secondArgPattern, END_EXPRESSION_PATTERN);
     }
 
     protected abstract String getFirstArgPattern();

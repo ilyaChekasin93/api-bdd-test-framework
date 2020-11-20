@@ -18,6 +18,7 @@ import static api.bdd.test.framework.utils.Helpers.getPojoValue;
 
 
 @Component
+@SuppressWarnings("unused")
 public class RestAction {
 
     private RestContext context;
@@ -88,8 +89,7 @@ public class RestAction {
     }
 
     public void addHeaders(Map<String, String> headers){
-        headers.entrySet()
-                .forEach(h -> addHeader(h.getKey(), h.getValue()));
+        headers.forEach(this::addHeader);
     }
 
     public void setHeaders(Map<String, String> headers){

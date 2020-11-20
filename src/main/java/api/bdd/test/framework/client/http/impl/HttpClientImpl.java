@@ -35,11 +35,10 @@ public class HttpClientImpl implements HttpClient {
         HttpEntity httpEntity = getHttpEntity(requestHttpMethod, requestBody, requestHttpHeaders);
         Map<String, String> queryParams = request.getQueryParams();
 
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getBaseUrl()).path(request.getResource());
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getBaseUrl())
+                .path(request.getResource());
 
-        request.getUrlParams()
-                .entrySet().stream()
-                .forEach(p -> uriBuilder.queryParam(p.getKey(), p.getValue()));
+        request.getUrlParams().forEach(uriBuilder::queryParam);
 
         String requestUrl = uriBuilder.toUriString();
 
@@ -59,7 +58,7 @@ public class HttpClientImpl implements HttpClient {
 
     private HttpHeaders listHeader2HttpHeaders(Map<String, List<String>> headers){
         HttpHeaders httpHeaders = new HttpHeaders();
-        headers.entrySet().stream().forEach(h -> httpHeaders.put(h.getKey(), h.getValue()));
+        headers.forEach(httpHeaders::put);
         return httpHeaders;
     }
 

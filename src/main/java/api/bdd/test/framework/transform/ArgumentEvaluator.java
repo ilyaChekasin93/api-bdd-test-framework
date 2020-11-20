@@ -20,12 +20,11 @@ public class ArgumentEvaluator {
     }
 
     public Object evaluateStepArg(Object argument) {
-
         if (argument instanceof List) {
-            argument = evaluateValues((List) argument);
+            argument = evaluateValues((List<String>) argument);
 
         } else if (argument instanceof Map) {
-            argument = evaluateValues((Map) argument);
+            argument = evaluateValues((Map<String, String>) argument);
 
         } else if (argument instanceof String) {
             argument = evaluateValue(argument.toString());
@@ -60,7 +59,7 @@ public class ArgumentEvaluator {
     }
 
     private List<String> evaluateValues(List<String> arguments) {
-        return arguments.stream().map(v -> evaluateValue(v)).collect(Collectors.toList());
+        return arguments.stream().map(this::evaluateValue).collect(Collectors.toList());
     }
 
 

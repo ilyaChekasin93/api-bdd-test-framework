@@ -13,13 +13,13 @@ import java.io.StringWriter;
 @Component
 public class XmlBodyAction implements BodyAction {
 
-    public Object getValueByBodyPath(String xPath, Object xml){
+    public Object getValueByBodyPath(String xPath, Object xml) {
         return JXPathContext
                 .newContext(xml)
                 .getValue(xPath);
     }
 
-    public Object setValueByBodyPath(Object xml, String xPath, String value){
+    public Object setValueByBodyPath(Object xml, String xPath, String value) {
         JXPathContext context = JXPathContext.newContext(xml);
         context.setValue(xPath, value);
         return context.getContextBean();

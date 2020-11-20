@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ExpressionScope {
+public class ExpressionScopeDto {
 
     private Character startExpressionChar;
 

@@ -22,6 +22,7 @@ import static api.bdd.test.framework.utils.Helpers.reverse;
 
 
 @Component
+@SuppressWarnings("unused")
 public class SoapAction {
 
     private SoapContext context;
@@ -64,6 +65,7 @@ public class SoapAction {
 
     public void setSoapAction(String soapAction) {
         String[] packs;
+
         try {
             packs = new URI(soapAction).getHost().split("\\.");
         } catch (URISyntaxException e) {
@@ -71,10 +73,9 @@ public class SoapAction {
         }
 
         final String[] pojoPath = {""};
+
         Arrays.stream(reverse(packs))
-                .forEach(p -> pojoPath[0] = pojoPath[0].equals("")
-                                ? p
-                                : String.format("%s.%s", pojoPath[0], p));
+                .forEach(p -> pojoPath[0] = pojoPath[0].equals("") ? p : String.format("%s.%s", pojoPath[0], p));
 
         context.getSoapRequest().setPojoPath(pojoPath[0]);
         context.getSoapRequest().setSoapAction(soapAction);
@@ -96,6 +97,7 @@ public class SoapAction {
 
     public Object getResponseBodyValue(String xPath) {
         Object responseBody = context.getSoapResponse().getBody();
+
         return bodyAction.getValueByBodyPath(xPath, responseBody).toString();
     }
 
