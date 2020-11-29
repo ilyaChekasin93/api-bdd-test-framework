@@ -5,6 +5,7 @@ import api.bdd.test.framework.exception.GettingPojoException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class Helpers {
 
     public static final int FIRST_INT = 1;

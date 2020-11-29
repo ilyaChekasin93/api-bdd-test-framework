@@ -13,7 +13,7 @@ public abstract class AbstractExpressionRoute extends AbstractRoute {
     private static final String END_EXPRESSION_PATTERN = "\\]";
 
 
-    public String getPattern(){
+    public String getPattern() {
         String firstArgPattern = getFirstArgPattern();
         String operationPattern = getOperationPattern();
         String secondArgPattern = getSecondArgPattern();

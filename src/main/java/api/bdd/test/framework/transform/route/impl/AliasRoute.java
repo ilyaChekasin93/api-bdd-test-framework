@@ -17,7 +17,7 @@ public class AliasRoute extends AbstractRoute {
     @Setter
     private String expression;
 
-    public AliasRoute(StorageAction storageAction){
+    public AliasRoute(StorageAction storageAction) {
         this.storageAction = storageAction;
     }
 

@@ -36,7 +36,7 @@ public class ArgumentEvaluator {
     private String evaluateValue(String value) {
         List<String> argParts = argumentParser.getArgumentParts(value);
 
-        for (int i = argParts.size(); i > 0; i--){
+        for (int i = argParts.size(); i > 0; i--) {
             String argPart = argParts.get(i - 1);
 
             TransformRoute strategy = strategyFactory.getRoute(argPart);
@@ -61,7 +61,6 @@ public class ArgumentEvaluator {
     private List<String> evaluateValues(List<String> arguments) {
         return arguments.stream().map(this::evaluateValue).collect(Collectors.toList());
     }
-
 
 
 }

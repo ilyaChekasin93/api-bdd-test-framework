@@ -12,4 +12,5 @@ import org.springframework.test.context.ContextConfiguration;
         glue = {"api.bdd.test.framework"},
         features = "src/test/resources/features",
         plugin = {"pretty", "html:target/cucumber"})
-public class TestRunner {}
+public class TestRunner {
+}

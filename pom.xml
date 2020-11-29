@@ -33,6 +33,9 @@
         <swagger.annotations.version>1.5.0</swagger.annotations.version>
         <threetenbp.version>1.4.1</threetenbp.version>
         <gson.version>2.8.6</gson.version>
+        <h2database.version>1.4.200</h2database.version>
+        <postgres.version>42.2.18</postgres.version>
+        <mysql.version>8.0.22</mysql.version>
 
         <calculator.wsdl.url>http://www.dneonline.com/calculator.asmx?WSDL</calculator.wsdl.url>
         <swagger.url>https://petstore.swagger.io/v2/swagger.json</swagger.url>
@@ -134,6 +137,29 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2database.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgres.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
         </dependency>
     </dependencies>
 

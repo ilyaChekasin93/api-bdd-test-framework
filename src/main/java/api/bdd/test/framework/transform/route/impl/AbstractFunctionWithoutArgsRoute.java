@@ -12,7 +12,7 @@ public abstract class AbstractFunctionWithoutArgsRoute extends AbstractRoute {
 
     private static final String ARGS_PATTERN = "\\(\\)";
 
-    public String getPattern(){
+    public String getPattern() {
         String functionName = getFunctionName();
         return START_EXPRESSION + functionName + ARGS_PATTERN;
     }

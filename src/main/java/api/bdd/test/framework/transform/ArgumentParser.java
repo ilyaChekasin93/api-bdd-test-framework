@@ -27,8 +27,7 @@ public class ArgumentParser {
         List<ExpressionPartDto> parts = new ArrayList<>();
         char[] expressionChars = arg.toCharArray();
 
-        for (int i = 0; i < expressionChars.length; i++) {
-            char curChar = expressionChars[i];
+        for (char curChar : expressionChars) {
             parts = addCharInOpenParts(curChar, parts);
             processExpressionChar(curChar, parts);
         }

@@ -23,7 +23,7 @@ public abstract class AbstractFunctionRoute extends AbstractRoute {
         arguments = Arrays.asList(value.split(", "));
     }
 
-    public String getPattern(){
+    public String getPattern() {
         String functionName = getFunctionName();
         return START_FUNCTION_PATTERN + functionName + ARGS_PATTERN;
     }
