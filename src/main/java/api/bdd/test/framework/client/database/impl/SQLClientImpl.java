@@ -6,7 +6,7 @@ import api.bdd.test.framework.client.dto.SQLQueryResult;
 import api.bdd.test.framework.client.dto.SQLQuery;
 import api.bdd.test.framework.exception.DriverNotSupportedException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,19 +16,25 @@ import java.util.Map;
 @Component
 public class SQLClientImpl implements SQLClient {
 
+    private JdbcTemplate jdbcTemplate;
+
+    public SQLClientImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     public SQLQueryResult executeQuery(ConnectionSource connectionSource, SQLQuery query) {
-        SimpleDriverDataSource dataSource = initDataSource(connectionSource);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        DriverManagerDataSource dataSource = initDataSource(connectionSource);
+        jdbcTemplate.setDataSource(dataSource);
         List<Map<String, Object>> result = jdbcTemplate.queryForList(query.getQuery());
 
         return new SQLQueryResult(result);
     }
 
-    private SimpleDriverDataSource initDataSource(ConnectionSource connectionSource) {
-        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+    private DriverManagerDataSource initDataSource(ConnectionSource connectionSource) {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        Class<? extends java.sql.Driver> driverClass = getDriverByDatabaseName(connectionSource.getDatabaseName());
-        dataSource.setDriverClass(driverClass);
+        String driverClassName = getDriverByDatabaseName(connectionSource.getDatabaseName()).getName();
+        dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(connectionSource.getUrl());
         dataSource.setUsername(connectionSource.getUsername());
         dataSource.setPassword(connectionSource.getPassword());
