@@ -1,8 +1,8 @@
 package api.bdd.test.framework.hooks;
 
-import api.bdd.test.framework.client.dto.ConnectionSource;
-import api.bdd.test.framework.client.dto.SQLQuery;
-import api.bdd.test.framework.client.dto.SQLQueryResult;
+import api.bdd.test.framework.client.database.dto.ConnectionSource;
+import api.bdd.test.framework.client.database.dto.SQLQuery;
+import api.bdd.test.framework.client.database.dto.SQLQueryResult;
 import api.bdd.test.framework.client.http.dto.Request;
 import api.bdd.test.framework.client.soap.dto.SoapRequest;
 import api.bdd.test.framework.client.soap.dto.SoapResponse;

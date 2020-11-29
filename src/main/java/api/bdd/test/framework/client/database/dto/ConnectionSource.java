@@ -1,4 +1,4 @@
-package api.bdd.test.framework.client.dto;
+package api.bdd.test.framework.client.database.dto;
 
 import lombok.Data;
 

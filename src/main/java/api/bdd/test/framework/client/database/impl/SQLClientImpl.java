@@ -1,9 +1,9 @@
 package api.bdd.test.framework.client.database.impl;
 
 import api.bdd.test.framework.client.database.SQLClient;
-import api.bdd.test.framework.client.dto.ConnectionSource;
-import api.bdd.test.framework.client.dto.SQLQueryResult;
-import api.bdd.test.framework.client.dto.SQLQuery;
+import api.bdd.test.framework.client.database.dto.ConnectionSource;
+import api.bdd.test.framework.client.database.dto.SQLQueryResult;
+import api.bdd.test.framework.client.database.dto.SQLQuery;
 import api.bdd.test.framework.exception.DriverNotSupportedException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
