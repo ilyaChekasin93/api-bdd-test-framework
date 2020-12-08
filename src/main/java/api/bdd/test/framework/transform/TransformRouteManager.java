@@ -21,7 +21,8 @@ public class TransformRouteManager {
 
 
     public TransformRouteManager(ListableBeanFactory beanFactory) {
-        Collection<TransformRoute> expressionStrategyCollection = beanFactory.getBeansOfType(TransformRoute.class).values();
+        Collection<TransformRoute> expressionStrategyCollection =
+                beanFactory.getBeansOfType(TransformRoute.class).values();
         transformRoutes = new ArrayList<>(expressionStrategyCollection);
     }
 
@@ -39,6 +40,7 @@ public class TransformRouteManager {
         return transformRoutes.stream().map(r -> {
             Character startChar = r.getStartPatternChar();
             Character endChar = r.getEndPatternChar();
+
             return new ExpressionScopeDto(startChar, endChar);
         }).collect(Collectors.toList());
     }

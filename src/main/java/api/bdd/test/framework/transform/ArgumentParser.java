@@ -1,5 +1,6 @@
 package api.bdd.test.framework.transform;
 
+import api.bdd.test.framework.exception.ArgumentParserException;
 import api.bdd.test.framework.transform.dto.ExpressionPartDto;
 import api.bdd.test.framework.transform.dto.ExpressionScopeDto;
 import org.springframework.stereotype.Component;
@@ -84,7 +85,8 @@ public class ArgumentParser {
         return bracketsList.stream()
                 .filter(b -> b.getStartExpressionChar().equals(startChar))
                 .findFirst()
-                .get()
+                .orElseThrow(() -> new ArgumentParserException(
+                        String.format("End bracket not found for start bracket - %s", startChar)))
                 .getEndExpressionChar();
     }
 

@@ -32,7 +32,9 @@ public class ScenarioHook {
     private StorageContext storageContext;
 
 
-    public ScenarioHook(RestContext restContext, SoapContext soapContext, SQLDatabaseContext sqlDatabaseContext,
+    public ScenarioHook(RestContext restContext,
+                        SoapContext soapContext,
+                        SQLDatabaseContext sqlDatabaseContext,
                         StorageContext storageContext) {
         this.restContext = restContext;
         this.soapContext = soapContext;
