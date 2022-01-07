@@ -33,7 +33,7 @@
         <swagger.annotations.version>1.5.0</swagger.annotations.version>
         <threetenbp.version>1.4.1</threetenbp.version>
         <gson.version>2.8.6</gson.version>
-        <h2database.version>1.4.200</h2database.version>
+        <h2database.version>2.0.206</h2database.version>
         <postgres.version>42.2.18</postgres.version>
         <mysql.version>8.0.22</mysql.version>
 
