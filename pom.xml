@@ -35,7 +35,7 @@
         <gson.version>2.8.6</gson.version>
         <h2database.version>1.4.200</h2database.version>
         <postgres.version>42.2.18</postgres.version>
-        <mysql.version>8.0.22</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
 
         <calculator.wsdl.url>http://www.dneonline.com/calculator.asmx?WSDL</calculator.wsdl.url>
         <swagger.url>https://petstore.swagger.io/v2/swagger.json</swagger.url>
